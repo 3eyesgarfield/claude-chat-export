@@ -31,7 +31,7 @@ Copy all files in this repo to the target machine, then run `Claude-Setup.bat`.
 
 | File | Action |
 |------|--------|
-| `查看Claude对话记录.bat` | Browse all conversations interactively |
+| `View Conversations.bat` | Browse all conversations interactively |
 | `Export to MD.bat` | Export all conversations to `Claude-Conversations\` as `.md` files |
 
 ## How it works
