@@ -225,19 +225,27 @@ function printConversation(filePath) {
 function printMenu(convs) {
   console.clear();
   console.log('Claude Conversation Viewer');
-  console.log('='.repeat(50));
   console.log('');
 
+  const W_NUM = 4, W_COUNT = 5, W_DATE = 21, W_PREVIEW = 36;
+  const header =
+    padStart('#', W_NUM) + '  ' +
+    padEnd('Msgs', W_COUNT) + '  ' +
+    padEnd('Last Active', W_DATE) + '  ' +
+    'First Message';
+  console.log(header);
+  console.log('-'.repeat(W_NUM + 2 + W_COUNT + 2 + W_DATE + 2 + W_PREVIEW));
+
   convs.forEach((c, i) => {
-    const num = String(i + 1).padStart(3);
-    const date = formatDate(c.lastTs || c.firstTs);
-    const count = c.msgCount + ' msgs';
+    const num = padStart(String(i + 1), W_NUM);
+    const count = padEnd(String(c.msgCount), W_COUNT);
+    const date = padEnd(formatDate(c.lastTs || c.firstTs), W_DATE);
+    const preview = truncate((c.preview || '(empty)').replace(/\n/g, ' '), W_PREVIEW);
     const tag = c.source === 'saved' ? ' [saved]' : '';
-    const preview = (c.preview || '(empty)').slice(0, 50).replace(/\n/g, ' ');
-    console.log(`${num}.  [${date}] ${count}${tag}`);
-    console.log(`      ${preview}`);
-    console.log('');
+    console.log(`${num}  ${count}  ${date}  ${preview}${tag}`);
   });
+
+  console.log('');
 }
 
 function ask(rl, question) {
